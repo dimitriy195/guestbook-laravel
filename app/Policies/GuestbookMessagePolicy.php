@@ -17,7 +17,7 @@ class GuestbookMessagePolicy
 
     public function update(User $user, GuestbookMessage $message)
     {
-        return $user->id == $message->user_id
+        return $user->id == $message->user_id && !$message->answers()->count()
             ? $this->allow()
             : $this->deny('Вы не владелец сообщения');
     }
